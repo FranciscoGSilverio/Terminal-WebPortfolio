@@ -12,7 +12,7 @@ const Input = styled.input`
   background: none;
   border: none;
   padding: 5px;
-  font-size: 16px;
+  font-size: 15px;
   flex: 1;
   color: green;
   &:focus {

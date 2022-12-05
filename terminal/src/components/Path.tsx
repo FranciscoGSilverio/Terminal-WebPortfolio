@@ -9,6 +9,7 @@ const Span = styled.span`
     padding: 5px;
     display: flex;
     min-width: 100%;
+    font-size: 14px;
   }
 `;
 

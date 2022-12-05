@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Poppins", sans-serif;
 `;
 
 const App = () => {
