@@ -1,6 +1,6 @@
+import React from "react";
 import styled from "styled-components";
 import { HiArrowSmRight } from "react-icons/hi";
-import React from "react";
 
 const CommandInputWrapper = styled.div`
   display: flex;
@@ -9,18 +9,20 @@ const CommandInputWrapper = styled.div`
   color: green;
 `;
 
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+`;
+
 const Input = styled.input`
-  background: none;
   border: none;
+  background: none;
   padding: 5px;
-  font-size: 15px;
   flex: 1;
+  font-size: 15px;
   color: green;
   &:focus {
     outline: none;
-  }
-  &:before {
-    content: "\\2192";
   }
 `;
 
@@ -30,20 +32,23 @@ interface Props {
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const CommandInput = ({ inputValue, changeHandler, submitHandler }: Props) => {
-  return (
-    <CommandInputWrapper>
-      <HiArrowSmRight />
-      <form onSubmit={(e) => submitHandler(e)}>
-        <Input
-          type="text"
-          autoFocus={true}
-          value={inputValue}
-          onChange={(e) => changeHandler(e)}
-        />
-      </form>
-    </CommandInputWrapper>
-  );
-};
+const CommandInput = React.forwardRef<HTMLInputElement, Props>(
+  ({ inputValue, changeHandler, submitHandler }, ref) => {
+    return (
+      <CommandInputWrapper>
+        <HiArrowSmRight size={23} />
+        <Form onSubmit={(e) => submitHandler(e)}>
+          <Input
+            ref={ref}
+            type="text"
+            autoFocus={true}
+            value={inputValue}
+            onChange={(e) => changeHandler(e)}
+          />
+        </Form>
+      </CommandInputWrapper>
+    );
+  }
+);
 
-export default CommandInput;
+export default React.memo(CommandInput);

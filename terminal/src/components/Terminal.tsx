@@ -1,11 +1,7 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
-
-interface ButtonProps {
-  color: string;
-}
 
 const Window = styled.div`
   width: 50%;
@@ -17,14 +13,6 @@ const Window = styled.div`
   padding: 0 1rem 1rem 1rem;
   box-sizing: border-box;
   position: relative;
-`;
-
-const Group = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 2rem;
-  align-items: center;
 `;
 
 const Header = styled.div`
@@ -72,7 +60,12 @@ const TerminalTitle = styled.h1`
   left: 40%;
 `;
 
+interface ButtonProps {
+  color: string;
+}
+
 const Terminal = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
 
@@ -83,18 +76,22 @@ const Terminal = () => {
     [inputValue]
   );
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setCommandsHistory([inputValue, ...commandsHistory]);
-    setInputValue("");
+  const submitHandler = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setCommandsHistory([...commandsHistory, inputValue]);
+      setInputValue("");
+      inputRef.current && inputRef.current.focus();
+    },
+    [inputValue, commandsHistory]
+  );
+
+  const clickHandler = () => {
+    inputRef.current && inputRef.current.focus();
   };
 
-  useEffect(() => {
-    console.log(commandsHistory);
-  }, [commandsHistory]);
-
   return (
-    <Window>
+    <Window onClick={() => clickHandler()}>
       <HeaderPlaceholder />
       <Header>
         <MacOsButtons>
@@ -104,24 +101,25 @@ const Terminal = () => {
         </MacOsButtons>
         <TerminalTitle>{window.location.href}</TerminalTitle>
       </Header>
-      <Group>
-        <Path path="~/home" />
-        <CommandInput
-          inputValue={inputValue}
-          changeHandler={changeHandler}
-          submitHandler={submitHandler}
-        />
-        {commandsHistory.map((item, index) => (
-          <>
-            <Path path="~/home" />
-            <CommandInput
-              inputValue={inputValue}
-              changeHandler={changeHandler}
-              submitHandler={submitHandler}
-            />
-          </>
-        ))}
-      </Group>
+
+      {commandsHistory.map((item, index) => (
+        <div key={index}>
+          <Path path="~/home" />
+          <CommandInput
+            inputValue={item}
+            changeHandler={changeHandler}
+            submitHandler={submitHandler}
+          />
+        </div>
+      ))}
+
+      <Path path="~/home" />
+      <CommandInput
+        ref={inputRef}
+        inputValue={inputValue}
+        changeHandler={changeHandler}
+        submitHandler={submitHandler}
+      />
     </Window>
   );
 };
