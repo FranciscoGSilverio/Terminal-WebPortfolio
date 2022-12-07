@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 const About = () => {
   const AboutWrapper = styled.div`
-    font-size: 12px;
+    font-size: 14px;
+    color: aliceblue;
   `;
 
   return (

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
+import About from "./commands/About";
 
 const Window = styled.div`
   width: 50%;
@@ -13,6 +14,8 @@ const Window = styled.div`
   padding: 0 1rem 1rem 1rem;
   box-sizing: border-box;
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const Header = styled.div`
@@ -69,6 +72,24 @@ const Terminal = () => {
   const [inputValue, setInputValue] = useState("");
   const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
 
+  const renderTerminalResponse = (command: string) => {
+    switch (command.toLowerCase()) {
+      case "about":
+        return <About />;
+
+      case "help":
+        console.log("User asked for help");
+        break;
+
+      case "clear":
+        setCommandsHistory([]);
+        break;
+
+      default:
+        console.log("nada a retornar");
+    }
+  };
+
   const changeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
@@ -81,7 +102,6 @@ const Terminal = () => {
       e.preventDefault();
       setCommandsHistory([...commandsHistory, inputValue]);
       setInputValue("");
-      inputRef.current && inputRef.current.focus();
     },
     [inputValue, commandsHistory]
   );
@@ -110,6 +130,7 @@ const Terminal = () => {
             changeHandler={changeHandler}
             submitHandler={submitHandler}
           />
+          {renderTerminalResponse(item)}
         </div>
       ))}
 
