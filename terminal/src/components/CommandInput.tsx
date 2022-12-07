@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { HiArrowSmRight } from "react-icons/hi";
+import React from "react";
 
 const CommandInputWrapper = styled.div`
   display: flex;
@@ -23,11 +24,24 @@ const Input = styled.input`
   }
 `;
 
-const CommandInput = () => {
+interface Props {
+  inputValue: string;
+  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const CommandInput = ({ inputValue, changeHandler, submitHandler }: Props) => {
   return (
     <CommandInputWrapper>
       <HiArrowSmRight />
-      <Input type="text" autoFocus={true} />
+      <form onSubmit={(e) => submitHandler(e)}>
+        <Input
+          type="text"
+          autoFocus={true}
+          value={inputValue}
+          onChange={(e) => changeHandler(e)}
+        />
+      </form>
     </CommandInputWrapper>
   );
 };

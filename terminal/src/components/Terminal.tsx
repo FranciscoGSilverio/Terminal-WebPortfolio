@@ -1,3 +1,4 @@
+import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
@@ -9,7 +10,7 @@ interface ButtonProps {
 const Window = styled.div`
   width: 50%;
   height: 60%;
-  border: 1px solid #898aa6;
+  border: 3px solid #898aa6;
   box-shadow: #898aa6 0px 3px 8px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -31,6 +32,7 @@ const Header = styled.div`
   width: 100%;
   height: 2rem;
   background-color: #898aa6;
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
@@ -62,7 +64,7 @@ const RoundedButton = styled.div<ButtonProps>`
 
 const TerminalTitle = styled.h1`
   font-size: 12px;
-  
+
   justify-self: center;
   color: aliceblue;
   position: absolute;
@@ -71,6 +73,26 @@ const TerminalTitle = styled.h1`
 `;
 
 const Terminal = () => {
+  const [inputValue, setInputValue] = useState("");
+  const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
+
+  const changeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
+    },
+    [inputValue]
+  );
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setCommandsHistory([inputValue, ...commandsHistory]);
+    setInputValue("");
+  };
+
+  useEffect(() => {
+    console.log(commandsHistory);
+  }, [commandsHistory]);
+
   return (
     <Window>
       <HeaderPlaceholder />
@@ -84,7 +106,21 @@ const Terminal = () => {
       </Header>
       <Group>
         <Path path="~/home" />
-        <CommandInput />
+        <CommandInput
+          inputValue={inputValue}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
+        {commandsHistory.map((item, index) => (
+          <>
+            <Path path="~/home" />
+            <CommandInput
+              inputValue={inputValue}
+              changeHandler={changeHandler}
+              submitHandler={submitHandler}
+            />
+          </>
+        ))}
       </Group>
     </Window>
   );
