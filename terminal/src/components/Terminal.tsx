@@ -4,6 +4,8 @@ import CommandInput from "./CommandInput";
 import Path from "./Path";
 import About from "./commands/About";
 import Help from "./commands/Help";
+import CommandNotFound from "./commands/CommandNotFound";
+import Echo from "./commands/Echo";
 
 const Column = styled.section`
   display: flex;
@@ -73,8 +75,23 @@ const Terminal = () => {
   const [inputValue, setInputValue] = useState("");
   const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
 
+  const processInputString = (command: string): string[] => {
+    let input = command.split(" ");
+
+    if (input.length > 2) {
+      const cmd = input.splice(0, 1);
+
+      const args = input.join(" ");
+      return input = [...cmd, args];
+    }
+
+    return [...input];
+  };
+
   const renderTerminalResponse = (command: string) => {
-    switch (command.toLowerCase()) {
+    const [key, argument] = processInputString(command);
+
+    switch (key.toLowerCase()) {
       case "about":
         return <About />;
 
@@ -85,8 +102,11 @@ const Terminal = () => {
         setCommandsHistory([]);
         break;
 
+      case "echo":
+        return <Echo message={argument} />;
+
       default:
-        console.log("nada a retornar");
+        return <CommandNotFound />;
     }
   };
 
@@ -100,6 +120,7 @@ const Terminal = () => {
   const submitHandler = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      processInputString(inputValue);
       setCommandsHistory([...commandsHistory, inputValue]);
       setInputValue("");
     },

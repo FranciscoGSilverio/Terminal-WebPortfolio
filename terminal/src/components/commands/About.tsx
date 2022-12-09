@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Command } from "../../styles/common";
 const About = () => {
   return (
     <>
@@ -15,8 +15,8 @@ const About = () => {
       </p>
       <p>
         If you liked this project and would like to take a look at the source
-        code or contact me, use the <code>source</code>, <code>social</code> or
-        <code>connect</code> commands
+        code or contact me, use the <Command>source</Command>, <Command>social</Command> or 
+        <Command>connect</Command> commands
       </p>
       <p>
         In case you have any doubts on the commands type help to display a list
