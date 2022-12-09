@@ -1,14 +1,7 @@
 import * as React from "react";
-import styled from "styled-components";
-
 const About = () => {
-  const AboutWrapper = styled.div`
-    font-size: 14px;
-    color: aliceblue;
-  `;
-
   return (
-    <AboutWrapper>
+    <>
       <p>
         <strong>Hi!</strong> My name is Francisco Silvério
       </p>
@@ -29,7 +22,7 @@ const About = () => {
         In case you have any doubts on the commands type help to display a list
         of commands and their description
       </p>
-    </AboutWrapper>
+    </>
   );
 };
 

@@ -3,19 +3,12 @@ import styled from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
 import About from "./commands/About";
+import Help from "./commands/Help";
 
-const Window = styled.div`
-  width: 50%;
-  height: 60%;
-  border: 3px solid #898aa6;
-  box-shadow: #898aa6 0px 3px 8px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  padding: 0 1rem 1rem 1rem;
-  box-sizing: border-box;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
+const Column = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
 `;
 
 const Header = styled.div`
@@ -24,17 +17,7 @@ const Header = styled.div`
   height: 2rem;
   background-color: #898aa6;
   box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-const HeaderPlaceholder = styled.div`
-  width: 100%;
-  height: 25px;
-  margin-bottom: 0.5rem;
-  display: block;
-  border: 1px solid red;
+  position: sticky;
 `;
 
 const MacOsButtons = styled.div`
@@ -55,12 +38,30 @@ const RoundedButton = styled.div<ButtonProps>`
 
 const TerminalTitle = styled.h1`
   font-size: 12px;
-
   justify-self: center;
   color: aliceblue;
   position: absolute;
   top: 0;
   left: 40%;
+`;
+
+const Body = styled.div`
+  height: 60vh;
+  border: 3px solid #898aa6;
+  box-shadow: #898aa6 0px 3px 8px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 0 1rem 1rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+
+const OutputWrapper = styled.div`
+  font-size: 14px;
+  color: aliceblue;
+  padding-left: 2em;
 `;
 
 interface ButtonProps {
@@ -78,8 +79,7 @@ const Terminal = () => {
         return <About />;
 
       case "help":
-        console.log("User asked for help");
-        break;
+        return <Help />;
 
       case "clear":
         setCommandsHistory([]);
@@ -111,8 +111,7 @@ const Terminal = () => {
   };
 
   return (
-    <Window onClick={() => clickHandler()}>
-      <HeaderPlaceholder />
+    <Column>
       <Header>
         <MacOsButtons>
           <RoundedButton color="#ff605c" />
@@ -121,27 +120,28 @@ const Terminal = () => {
         </MacOsButtons>
         <TerminalTitle>{window.location.href}</TerminalTitle>
       </Header>
+      <Body onClick={() => clickHandler()}>
+        {commandsHistory.map((item, index) => (
+          <div key={index}>
+            <Path path="~/home" />
+            <CommandInput
+              inputValue={item}
+              changeHandler={changeHandler}
+              submitHandler={submitHandler}
+            />
+            <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
+          </div>
+        ))}
 
-      {commandsHistory.map((item, index) => (
-        <div key={index}>
-          <Path path="~/home" />
-          <CommandInput
-            inputValue={item}
-            changeHandler={changeHandler}
-            submitHandler={submitHandler}
-          />
-          {renderTerminalResponse(item)}
-        </div>
-      ))}
-
-      <Path path="~/home" />
-      <CommandInput
-        ref={inputRef}
-        inputValue={inputValue}
-        changeHandler={changeHandler}
-        submitHandler={submitHandler}
-      />
-    </Window>
+        <Path path="~/home" />
+        <CommandInput
+          ref={inputRef}
+          inputValue={inputValue}
+          changeHandler={changeHandler}
+          submitHandler={submitHandler}
+        />
+      </Body>
+    </Column>
   );
 };
 
