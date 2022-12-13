@@ -37,7 +37,7 @@ const items = [
   {
     command: "help",
     pipe: "|",
-    description: "displays the Itemst of available commands",
+    description: "displays the list of available commands",
   },
   {
     command: "github",

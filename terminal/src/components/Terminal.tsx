@@ -6,6 +6,8 @@ import About from "./commands/About";
 import Help from "./commands/Help";
 import CommandNotFound from "./commands/CommandNotFound";
 import Echo from "./commands/Echo";
+import Social from "./commands/Social";
+import Connect from "./commands/Connect";
 
 const Column = styled.section`
   display: flex;
@@ -82,7 +84,7 @@ const Terminal = () => {
       const cmd = input.splice(0, 1);
 
       const args = input.join(" ");
-      return input = [...cmd, args];
+      return (input = [...cmd, args]);
     }
 
     return [...input];
@@ -104,6 +106,12 @@ const Terminal = () => {
 
       case "echo":
         return <Echo message={argument} />;
+
+      case "social":
+        return <Social />;
+
+      case "connect":
+        return <Connect social={argument} />;
 
       default:
         return <CommandNotFound />;
