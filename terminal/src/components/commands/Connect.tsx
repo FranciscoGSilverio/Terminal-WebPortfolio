@@ -1,11 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { Command } from "../../styles/common";
 import { socialMedia } from "./Social";
 
 interface Props {
   social: string;
 }
 
+const ErrorContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .error {
+    color: #ff8b8b;
+    font-weight: bold;
+    line-height: 2em;
+  }
+`;
+
+const LoadingContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const rotate = keyframes`
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform:rotate(360deg)
+  }
+`;
+
+const Spinner = styled.span`
+  margin-left: 1em;
+  animation: ${rotate} 2s linear infinite;
+`;
+
 const Connect = ({ social }: Props) => {
+  const [feedBack, setFeedBack] = useState({
+    loading: false,
+    error: false,
+  });
 
   const findUrl = () => {
     const redirectUrl = socialMedia.find(
@@ -19,13 +56,38 @@ const Connect = ({ social }: Props) => {
     const redirectUrl = findUrl();
 
     if (redirectUrl) {
-      window.location.href = redirectUrl;
+      setFeedBack({ loading: true, error: false });
+
+      setTimeout(() => (window.location.href = redirectUrl), 2000);
+    } else {
+      setFeedBack({ loading: false, error: true });
     }
   };
 
   useEffect(() => redirect(), []);
 
-  return <></>;
+  return (
+    <>
+      {feedBack.error && (
+        <ErrorContainer>
+          <span className="error">
+            Error while connecting to the given social media!
+          </span>
+          <span>
+            To see the list of available social media, type
+            <Command>social</Command>, to see the available commands, type
+            <Command>help</Command>
+          </span>
+        </ErrorContainer>
+      )}
+      {feedBack.loading && (
+        <LoadingContainer>
+          <span>Connecting to {social}</span>
+          <Spinner>+</Spinner>
+        </LoadingContainer>
+      )}
+    </>
+  );
 };
 
 export default Connect;

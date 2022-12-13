@@ -5,5 +5,6 @@ export const Command = styled.code`
     font-weight: bold;
     padding: 0.2em;
     border-radius: 10%;
+    margin-left: 5px;
     
 `
