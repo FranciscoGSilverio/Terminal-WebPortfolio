@@ -61,6 +61,11 @@ const items = [
     description: "displays the list of the developer social media",
   },
   {
+    command: "connect",
+    pipe: "|",
+    description: "redirects towards my profile in the given social media",
+  },
+  {
     command: "source",
     pipe: "|",
     description: "open the source code on the github repository",

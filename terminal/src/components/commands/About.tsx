@@ -15,12 +15,14 @@ const About = () => {
       </p>
       <p>
         If you liked this project and would like to take a look at the source
-        code or contact me, use the <Command>source</Command>, <Command>social</Command> or 
-        <Command>connect</Command> commands
+        code or contact me, use the <Command>source</Command>,
+        <Command>social</Command> or
+        <Command>connect [socialMedia]</Command> commands
       </p>
       <p>
-        In case you have any doubts on the commands type help to display a list
-        of commands and their description
+        In case you have any doubts on the commands, type
+        <Command>help</Command> to display a list of commands and their
+        description
       </p>
     </>
   );

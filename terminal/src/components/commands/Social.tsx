@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Command } from "../../styles/common";
 
 const List = styled.ul`
   list-style: none;
@@ -30,6 +31,7 @@ export const socialMedia = [
   {
     site: "GitHub",
     url: "https://github.com/FranciscoGSilverio",
+    repo: "https://github.com/FranciscoGSilverio/Terminal-WebPortfolio",
   },
   {
     site: "Twitter",
@@ -43,16 +45,23 @@ export const socialMedia = [
 
 const Social = () => {
   return (
-    <List>
-      {socialMedia.map((item, index) => (
-        <Item key={index}>
-          <span className="site">{item.site}:</span>
-          <a className="url" href={item.url}>
-            {item.url}
-          </a>
-        </Item>
-      ))}
-    </List>
+    <>
+      <List>
+        {socialMedia.map((item, index) => (
+          <Item key={index}>
+            <span className="site">{item.site}:</span>
+            <a className="url" href={item.url}>
+              {item.url}
+            </a>
+          </Item>
+        ))}
+      </List>
+
+      <span>
+        A shortcut to open any of the social media listed above is the
+        <Command>connect</Command> command. Try it out!
+      </span>
+    </>
   );
 };
 

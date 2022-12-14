@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Command } from "../../styles/common";
 import { socialMedia } from "./Social";
@@ -11,7 +11,7 @@ const ErrorContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-
+  line-height: 1.8em;
   .error {
     color: #ff8b8b;
     font-weight: bold;
@@ -44,12 +44,18 @@ const Connect = ({ social }: Props) => {
     error: false,
   });
 
-  const findUrl = () => {
-    const redirectUrl = socialMedia.find(
-      (item) => item.site.toLowerCase() === social.toLowerCase()
-    )?.url;
+  const rendersRef = useRef(0);
 
-    return redirectUrl;
+  const findUrl = () => {
+    if (social?.toLowerCase() === "repository") {
+      return "https://github.com/FranciscoGSilverio/Terminal-WebPortfolio";
+    } else {
+      const redirectUrl = socialMedia.find(
+        (item) => item.site.toLowerCase() === social?.toLowerCase()
+      )?.url;
+
+      return redirectUrl;
+    }
   };
 
   const redirect = () => {
@@ -58,13 +64,21 @@ const Connect = ({ social }: Props) => {
     if (redirectUrl) {
       setFeedBack({ loading: true, error: false });
 
-      setTimeout(() => (window.location.href = redirectUrl), 2000);
+      const redirectionTimeout = setTimeout(() => {
+        window.open(redirectUrl);
+      }, 2000);
     } else {
       setFeedBack({ loading: false, error: true });
     }
   };
 
-  useEffect(() => redirect(), []);
+  useEffect(() => {
+    if (rendersRef.current === 0) {
+      rendersRef.current = 1;
+    } else {
+      redirect();
+    }
+  }, []);
 
   return (
     <>
@@ -74,8 +88,18 @@ const Connect = ({ social }: Props) => {
             Error while connecting to the given social media!
           </span>
           <span>
+            Remember to pass a valid social media as parameter to the
+            <Command>connect</Command> command, like this:
+          </span>
+          <span>
+            E.g: <Command>connect instagram</Command>
+          </span>
+          <span>
             To see the list of available social media, type
-            <Command>social</Command>, to see the available commands, type
+            <Command>social</Command>,
+          </span>
+          <span>
+            To see the list of all available commands, type
             <Command>help</Command>
           </span>
         </ErrorContainer>

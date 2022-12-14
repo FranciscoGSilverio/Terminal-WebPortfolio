@@ -113,6 +113,9 @@ const Terminal = () => {
       case "connect":
         return <Connect social={argument} />;
 
+      case "source":
+        return <Connect social="repository" />;
+
       default:
         return <CommandNotFound />;
     }
