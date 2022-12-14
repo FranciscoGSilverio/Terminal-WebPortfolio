@@ -68,7 +68,7 @@ const items = [
   {
     command: "source",
     pipe: "|",
-    description: "open the source code on the github repository",
+    description: "opens the source code on the github repository",
   },
 ];
 

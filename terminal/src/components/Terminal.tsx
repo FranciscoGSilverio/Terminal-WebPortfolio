@@ -8,6 +8,7 @@ import CommandNotFound from "./commands/CommandNotFound";
 import Echo from "./commands/Echo";
 import Social from "./commands/Social";
 import Connect from "./commands/Connect";
+import GitHub from "./commands/GitHub";
 
 const Column = styled.section`
   display: flex;
@@ -116,6 +117,9 @@ const Terminal = () => {
       case "source":
         return <Connect social="repository" />;
 
+      case "github":
+        return <GitHub />;
+      
       default:
         return <CommandNotFound />;
     }
