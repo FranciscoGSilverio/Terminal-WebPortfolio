@@ -9,39 +9,30 @@ import Echo from "./commands/Echo";
 import Social from "./commands/Social";
 import Connect from "./commands/Connect";
 import GitHub from "./commands/GitHub";
-import Quote from "./commands/Quote";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import DrunkMode from "./commands/DrunkMode";
 import { useTheme } from "../hooks/useTheme";
 
-const rotate = keyframes`
-  0%{
-    
-    filter: blur(2px);
-    
-    }
+const drunk = keyframes`
 
-	10%{
-    	filter: blur(1px);
-        
+0%{
+  filter: blur(0.5px);
+}
+25%{
+  filter: blur(1.5px);
+  transform: scale(1.01) rotate(2deg) translate(20px, 30px);
+}
+50%{
+  filter: blur(0.75px);
+  transform: scale(1.003) translate(10px, 45px) ; 
+  }
+75%{
+  filter: blur(1.5px);
+  transform: rotate(-3deg) translate(-35px, -20px) scale(0.99);
     }
-    50%{
-    	filter: blur(4px);
-        transform: rotate(2deg);
-    }
-    
-    65%{
-    	filter: blur(6px)
-    }
-    
-    80%{
-    	filter: blur(2px);
-        
-    }
-    
-    100%{
-    	filter:blur(1px);
-    }
+100%{
+  filter: blur(0.5px);
+}
 `;
 
 const Column = styled.span`
@@ -52,7 +43,7 @@ const Column = styled.span`
   ${(props) =>
     props.theme === "drunk" &&
     css`
-      animation: ${rotate} 10s linear infinite;
+      animation: ${drunk} 10s linear infinite;
     `}
 `;
 
@@ -115,7 +106,6 @@ interface ButtonProps {
 
 const Terminal = () => {
   const { theme, setTheme } = useTheme();
-
   const componentKeyRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");

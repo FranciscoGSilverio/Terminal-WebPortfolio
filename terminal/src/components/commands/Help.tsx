@@ -25,11 +25,6 @@ const Item = styled.li`
 
 const items = [
   {
-    command: "cat",
-    pipe: "|",
-    description: "displays a picture of a cute cat",
-  },
-  {
     command: "help",
     pipe: "|",
     description: "displays the list of available commands",
@@ -65,6 +60,11 @@ const items = [
     command: "source",
     pipe: "|",
     description: "opens the source code on the github repository",
+  },
+  {
+    command: "drunkmode",
+    pipe: "|",
+    description: "have you ever used a terminal while you were drunk?...",
   },
 ];
 
