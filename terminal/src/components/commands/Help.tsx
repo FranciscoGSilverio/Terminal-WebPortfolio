@@ -25,11 +25,6 @@ const Item = styled.li`
 
 const items = [
   {
-    command: "song",
-    pipe: "|",
-    description: "plays a random song from spotify",
-  },
-  {
     command: "cat",
     pipe: "|",
     description: "displays a picture of a cute cat",
@@ -42,7 +37,8 @@ const items = [
   {
     command: "github",
     pipe: "|",
-    description: "### Does something with the github api ###",
+    description:
+      "fetches data about the developer from the GitHub API",
   },
   { command: "clear", pipe: "|", description: "clears the console" },
   {

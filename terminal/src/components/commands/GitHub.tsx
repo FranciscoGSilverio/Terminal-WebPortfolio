@@ -106,7 +106,7 @@ const GitHub = () => {
             <FieldValue>{userData.data?.following}</FieldValue>
           </span>
           <span>
-            <FieldName>Last push:</FieldName>{" "}
+            <FieldName>Last update:</FieldName>{" "}
             <FieldValue>{formatedDate(repoData.data?.pushed_at)}</FieldValue>
           </span>
         </CardContent>

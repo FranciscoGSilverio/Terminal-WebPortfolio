@@ -9,6 +9,8 @@ import Echo from "./commands/Echo";
 import Social from "./commands/Social";
 import Connect from "./commands/Connect";
 import GitHub from "./commands/GitHub";
+import Quote from "./commands/Quote";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const Column = styled.section`
   display: flex;
@@ -76,7 +78,10 @@ interface ButtonProps {
 const Terminal = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
-  const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
+  const [commandsHistory, setCommandsHistory] = useLocalStorage(
+    "commandsHistory",
+    []
+  );
 
   const processInputString = (command: string): string[] => {
     let input = command.split(" ");
@@ -119,7 +124,10 @@ const Terminal = () => {
 
       case "github":
         return <GitHub />;
-      
+
+      case "quote":
+        return <Quote />;
+
       default:
         return <CommandNotFound />;
     }
@@ -157,7 +165,7 @@ const Terminal = () => {
         <TerminalTitle>{window.location.href}</TerminalTitle>
       </Header>
       <Body onClick={() => clickHandler()}>
-        {commandsHistory.map((item, index) => (
+        {commandsHistory.map((item: any, index: number) => (
           <div key={index}>
             <Path path="~/home" />
             <CommandInput
