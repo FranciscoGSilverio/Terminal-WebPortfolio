@@ -17,11 +17,14 @@ const Quote = () => {
     },
   };
 
-  const quote = useQuery("quoteRequest", () =>
-    fetch(
-      "https://api.api-ninjas.com/v1/quotes?category=",
-      quoteRequestHeader
-    ).then((res) => res.json())
+  const quote = useQuery(
+    "quoteRequest",
+    () =>
+      fetch(
+        "https://api.api-ninjas.com/v1/quotes?category=",
+        quoteRequestHeader
+      ).then((res) => res.json()),
+    // { staleTime: Infinity }
   );
 
   return (

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
 import About from "./commands/About";
@@ -11,11 +11,49 @@ import Connect from "./commands/Connect";
 import GitHub from "./commands/GitHub";
 import Quote from "./commands/Quote";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import DrunkMode from "./commands/DrunkMode";
+import { useTheme } from "../hooks/useTheme";
 
-const Column = styled.section`
+const rotate = keyframes`
+  0%{
+    
+    filter: blur(2px);
+    
+    }
+
+	10%{
+    	filter: blur(1px);
+        
+    }
+    50%{
+    	filter: blur(4px);
+        transform: rotate(2deg);
+    }
+    
+    65%{
+    	filter: blur(6px)
+    }
+    
+    80%{
+    	filter: blur(2px);
+        
+    }
+    
+    100%{
+    	filter:blur(1px);
+    }
+`;
+
+const Column = styled.span`
   display: flex;
   flex-direction: column;
   width: 70%;
+
+  ${(props) =>
+    props.theme === "drunk" &&
+    css`
+      animation: ${rotate} 10s linear infinite;
+    `}
 `;
 
 const Header = styled.div`
@@ -76,6 +114,9 @@ interface ButtonProps {
 }
 
 const Terminal = () => {
+  const { theme, setTheme } = useTheme();
+
+  const componentKeyRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [commandsHistory, setCommandsHistory] = useLocalStorage(
@@ -99,36 +140,41 @@ const Terminal = () => {
   const renderTerminalResponse = (command: string) => {
     const [key, argument] = processInputString(command);
 
+    componentKeyRef.current += 1;
+
+    console.log(componentKeyRef.current);
+
     switch (key.toLowerCase()) {
       case "about":
-        return <About />;
+        return <About key={componentKeyRef.current} />;
 
       case "help":
-        return <Help />;
+        return <Help key={componentKeyRef.current} />;
 
       case "clear":
         setCommandsHistory([]);
         break;
 
       case "echo":
-        return <Echo message={argument} />;
+        return <Echo message={argument} key={componentKeyRef.current} />;
 
       case "social":
-        return <Social />;
+        return <Social key={componentKeyRef.current} />;
 
       case "connect":
-        return <Connect social={argument} />;
+        return <Connect social={argument} key={componentKeyRef.current} />;
 
       case "source":
-        return <Connect social="repository" />;
+        return <Connect social="repository" key={componentKeyRef.current} />;
 
       case "github":
-        return <GitHub />;
+        return <GitHub key={componentKeyRef.current} />;
 
-      case "quote":
-        return <Quote />;
+      case "drunkmode":
+        return <DrunkMode />;
 
       default:
+        componentKeyRef.current -= 1;
         return <CommandNotFound />;
     }
   };
@@ -154,8 +200,10 @@ const Terminal = () => {
     inputRef.current && inputRef.current.focus();
   };
 
+  useEffect(() => setCommandsHistory([]), []);
+
   return (
-    <Column>
+    <Column theme={theme}>
       <Header>
         <MacOsButtons>
           <RoundedButton color="#ff605c" />
