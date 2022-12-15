@@ -3,6 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import Terminal from "./components/Terminal";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useTheme } from "./hooks/useTheme";
+import AnimatedTitle from "./components/AnimatedTitle";
 
 const drunk = keyframes`
 
@@ -32,6 +33,7 @@ const Wrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: "Poppins", sans-serif;
@@ -51,6 +53,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Wrapper theme={theme}>
+        <AnimatedTitle />
         <Terminal />
       </Wrapper>
     </QueryClientProvider>

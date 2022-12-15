@@ -21,15 +21,15 @@ const drunk = keyframes`
 }
 25%{
   filter: blur(1.5px);
-  transform: scale(1.01) rotate(2deg) translate(20px, 30px);
+  transform: scale(1.01) rotate(2deg) translate(10px, 15px);
 }
 50%{
   filter: blur(0.75px);
-  transform: scale(1.003) translate(10px, 45px) ; 
+  transform: scale(1.003) translate(5px, 20px) ; 
   }
 75%{
   filter: blur(1.5px);
-  transform: rotate(-3deg) translate(-35px, -20px) scale(0.99);
+  transform: rotate(-3deg) translate(-18px, -10px) scale(0.99);
     }
 100%{
   filter: blur(0.5px);
@@ -93,6 +93,21 @@ const Body = styled.div`
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-color: #474e68;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px grey;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #6B728E;
+    border-radius: 15px;
+    height: 2px;
+  }
 `;
 
 const OutputWrapper = styled.div`
@@ -164,6 +179,7 @@ const Terminal = () => {
         return <DrunkMode />;
 
       case "reset":
+        setCommandsHistory([]);
         setTheme("dracula");
         break;
       default:
