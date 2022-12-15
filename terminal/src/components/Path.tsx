@@ -4,17 +4,34 @@ interface Props {
   path: string;
 }
 
-const Span = styled.span`
-    color: aliceblue;
-    padding: 5px;
-    display: flex;
-    min-width: 100%;
-    font-size: 14px;
+const LabelContainer = styled.div`
+  display: flex;
+  color: aliceblue;
+  font-size: 15px;
+
+  .user {
+    margin-right: 0.3em;
+    color: #50fa7b;
+  }
+
+  .in {
+    margin-right: 0.3em;
+  }
+
+  .path {
+    font-weight: bold;
+    color: #f1fa8c;
   }
 `;
 
 const Path = ({ path }: Props) => {
-  return <Span>User in {path}</Span>;
+  return (
+    <LabelContainer>
+      <span className="user">User </span>
+      <span className="in">in</span>
+      <span className="path">{path}</span>
+    </LabelContainer>
+  );
 };
 
 export default Path;

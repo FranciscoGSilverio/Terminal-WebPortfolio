@@ -12,6 +12,7 @@ import GitHub from "./commands/GitHub";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import DrunkMode from "./commands/DrunkMode";
 import { useTheme } from "../hooks/useTheme";
+import HistoryItems from "./HistoryItems";
 
 const drunk = keyframes`
 
@@ -106,13 +107,16 @@ interface ButtonProps {
 
 const Terminal = () => {
   const { theme, setTheme } = useTheme();
-  const componentKeyRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputValueRef = useRef<string>("");
   const [inputValue, setInputValue] = useState("");
   const [commandsHistory, setCommandsHistory] = useLocalStorage(
     "commandsHistory",
     []
   );
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const processInputString = (command: string): string[] => {
     let input = command.split(" ");
@@ -130,41 +134,39 @@ const Terminal = () => {
   const renderTerminalResponse = (command: string) => {
     const [key, argument] = processInputString(command);
 
-    componentKeyRef.current += 1;
-
-    console.log(componentKeyRef.current);
-
     switch (key.toLowerCase()) {
       case "about":
-        return <About key={componentKeyRef.current} />;
+        return <About />;
 
       case "help":
-        return <Help key={componentKeyRef.current} />;
+        return <Help />;
 
       case "clear":
         setCommandsHistory([]);
         break;
 
       case "echo":
-        return <Echo message={argument} key={componentKeyRef.current} />;
+        return <Echo message={argument} />;
 
       case "social":
-        return <Social key={componentKeyRef.current} />;
+        return <Social />;
 
       case "connect":
-        return <Connect social={argument} key={componentKeyRef.current} />;
+        return <Connect social={argument} />;
 
       case "source":
-        return <Connect social="repository" key={componentKeyRef.current} />;
+        return <Connect social="repository" />;
 
       case "github":
-        return <GitHub key={componentKeyRef.current} />;
+        return <GitHub />;
 
       case "drunkmode":
         return <DrunkMode />;
 
+      case "reset":
+        setTheme("dracula");
+        break;
       default:
-        componentKeyRef.current -= 1;
         return <CommandNotFound />;
     }
   };
@@ -204,13 +206,17 @@ const Terminal = () => {
       </Header>
       <Body onClick={() => clickHandler()}>
         {commandsHistory.map((item: any, index: number) => (
+          // <div key={index}>
+          //   <Path path="~/home" />
+          //   <CommandInput
+          //     inputValue={item}
+          //     changeHandler={changeHandler}
+          //     submitHandler={submitHandler}
+          //   />
+          //   <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
+          // </div>
           <div key={index}>
-            <Path path="~/home" />
-            <CommandInput
-              inputValue={item}
-              changeHandler={changeHandler}
-              submitHandler={submitHandler}
-            />
+            <HistoryItems inputValue={item} />
             <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
           </div>
         ))}

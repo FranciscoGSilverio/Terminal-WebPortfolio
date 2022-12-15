@@ -6,7 +6,7 @@ const CommandInputWrapper = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  color: green;
+  color: #50fa7b;
 `;
 
 const Form = styled.form`
@@ -20,7 +20,7 @@ const Input = styled.input`
   padding: 5px;
   flex: 1;
   font-size: 15px;
-  color: green;
+  color: aliceblue;
   &:focus {
     outline: none;
   }
