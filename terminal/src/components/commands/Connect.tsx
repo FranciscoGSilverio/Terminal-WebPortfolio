@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Command } from "../../styles/common";
 import { socialMedia } from "./Social";
@@ -44,8 +44,6 @@ const Connect = ({ social }: Props) => {
     error: false,
   });
 
-  const rendersRef = useRef(0);
-
   const findUrl = () => {
     if (social?.toLowerCase() === "repository") {
       return "https://github.com/FranciscoGSilverio/Terminal-WebPortfolio";
@@ -64,20 +62,16 @@ const Connect = ({ social }: Props) => {
     if (redirectUrl) {
       setFeedBack({ loading: true, error: false });
 
-      const redirectionTimeout = setTimeout(() => {
-        window.open(redirectUrl);
-      }, 2000);
+      const id = setTimeout(() => window.open(redirectUrl), 1500);
+
+      return () => clearTimeout(id);
     } else {
       setFeedBack({ loading: false, error: true });
     }
   };
 
   useEffect(() => {
-    if (rendersRef.current === 0) {
-      rendersRef.current = 1;
-    } else {
-      redirect();
-    }
+    redirect();
   }, []);
 
   return (
