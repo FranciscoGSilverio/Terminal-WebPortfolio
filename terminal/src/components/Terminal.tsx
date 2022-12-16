@@ -76,6 +76,7 @@ const RoundedButton = styled.div<ButtonProps>`
 const TerminalTitle = styled.h1`
   font-size: 12px;
   justify-self: center;
+  margin-left: 70px;
   color: aliceblue;
   position: absolute;
   top: 0;
@@ -104,7 +105,7 @@ const Body = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #6B728E;
+    background: #6b728e;
     border-radius: 15px;
     height: 2px;
   }
@@ -218,19 +219,10 @@ const Terminal = () => {
           <RoundedButton color="#ffbd44" />
           <RoundedButton color="#00ca4e" />
         </MacOsButtons>
-        <TerminalTitle>{window.location.href}</TerminalTitle>
+        <TerminalTitle>{document.title}</TerminalTitle>
       </Header>
       <Body onClick={() => clickHandler()}>
         {commandsHistory.map((item: any, index: number) => (
-          // <div key={index}>
-          //   <Path path="~/home" />
-          //   <CommandInput
-          //     inputValue={item}
-          //     changeHandler={changeHandler}
-          //     submitHandler={submitHandler}
-          //   />
-          //   <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
-          // </div>
           <div key={index}>
             <HistoryItems inputValue={item} />
             <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
