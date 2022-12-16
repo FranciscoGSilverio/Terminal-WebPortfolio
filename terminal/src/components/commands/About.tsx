@@ -17,7 +17,7 @@ const About = () => {
         If you liked this project and would like to take a look at the source
         code or contact me, use the <Command>source</Command>,
         <Command>social</Command> or
-        <Command>connect [socialMedia]</Command> commands
+        <Command>connect "socialMedia"</Command> commands
       </p>
       <p>
         In case you have any doubts on the commands, type

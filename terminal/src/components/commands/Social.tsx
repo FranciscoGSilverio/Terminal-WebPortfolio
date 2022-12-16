@@ -57,10 +57,13 @@ const Social = () => {
         ))}
       </List>
 
-      <span>
+      <p>
         A shortcut to open any of the social media listed above is the
-        <Command>connect</Command> command. Try it out!
-      </span>
+        <Command>connect</Command> command.
+      </p>
+      <p>
+        For example: <Command>connect instagram</Command>. Try it out!
+      </p>
     </>
   );
 };

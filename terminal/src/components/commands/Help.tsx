@@ -39,7 +39,7 @@ const items = [
   {
     command: "echo",
     pipe: "|",
-    description: "prints a message to the console",
+    description: "prints a message to the console. E.g: echo Hello World!",
   },
   {
     command: "about",
