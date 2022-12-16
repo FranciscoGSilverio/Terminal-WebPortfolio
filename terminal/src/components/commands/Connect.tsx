@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Command } from "../../styles/common";
 import { socialMedia } from "./Social";
@@ -44,7 +44,7 @@ const Connect = ({ social }: Props) => {
     error: false,
   });
 
-  const findUrl = () => {
+  const findUrl = useCallback(() => {
     if (social?.toLowerCase() === "repository") {
       return "https://github.com/FranciscoGSilverio/Terminal-WebPortfolio";
     } else {
@@ -54,9 +54,9 @@ const Connect = ({ social }: Props) => {
 
       return redirectUrl;
     }
-  };
+  }, [social]);
 
-  const redirect = () => {
+  const redirect = useCallback(() => {
     const redirectUrl = findUrl();
 
     if (redirectUrl) {
@@ -68,11 +68,11 @@ const Connect = ({ social }: Props) => {
     } else {
       setFeedBack({ loading: false, error: true });
     }
-  };
+  }, [findUrl]);
 
   useEffect(() => {
     redirect();
-  }, []);
+  }, [redirect]);
 
   return (
     <>
@@ -108,4 +108,4 @@ const Connect = ({ social }: Props) => {
   );
 };
 
-export default Connect;
+export default React.memo(Connect);

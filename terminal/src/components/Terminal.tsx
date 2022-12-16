@@ -1,18 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled, { keyframes, css } from "styled-components";
 import CommandInput from "./CommandInput";
 import Path from "./Path";
-import About from "./commands/About";
-import Help from "./commands/Help";
-import CommandNotFound from "./commands/CommandNotFound";
-import Echo from "./commands/Echo";
-import Social from "./commands/Social";
-import Connect from "./commands/Connect";
-import GitHub from "./commands/GitHub";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import DrunkMode from "./commands/DrunkMode";
 import { useTheme } from "../hooks/useTheme";
-import HistoryItems from "./HistoryItems";
+
+const About = React.lazy(() => import("./commands/About"));
+const Help = React.lazy(() => import("./commands/Help"));
+const CommandNotFound = React.lazy(() => import("./commands/CommandNotFound"));
+const Echo = React.lazy(() => import("./commands/Echo"));
+const Social = React.lazy(() => import("./commands/Social"));
+const Connect = React.lazy(() => import("./commands/Connect"));
+const GitHub = React.lazy(() => import("./commands/GitHub"));
+const DrunkMode = React.lazy(() => import("./commands/DrunkMode"));
+const HistoryItems = React.lazy(() => import("./HistoryItems"));
 
 const drunk = keyframes`
 
@@ -85,8 +91,7 @@ const TerminalTitle = styled.h1`
 
 const Body = styled.div`
   height: 60vh;
-  border: 3px solid #898aa6;
-  box-shadow: #898aa6 0px 3px 8px;
+  border: 5px solid #898aa6;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   padding: 0 1rem 1rem 1rem;
@@ -124,12 +129,9 @@ interface ButtonProps {
 const Terminal = () => {
   const { theme, setTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
-  const inputValueRef = useRef<string>("");
   const [inputValue, setInputValue] = useState("");
-  const [commandsHistory, setCommandsHistory] = useLocalStorage(
-    "commandsHistory",
-    []
-  );
+  const [commandsHistory, setCommandsHistory] = useState<string[]>([]);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -183,6 +185,7 @@ const Terminal = () => {
         setCommandsHistory([]);
         setTheme("dracula");
         break;
+
       default:
         return <CommandNotFound />;
     }
@@ -209,8 +212,6 @@ const Terminal = () => {
     inputRef.current && inputRef.current.focus();
   };
 
-  useEffect(() => setCommandsHistory([]), []);
-
   return (
     <Column theme={theme}>
       <Header>
@@ -224,12 +225,14 @@ const Terminal = () => {
       <Body onClick={() => clickHandler()}>
         {commandsHistory.map((item: any, index: number) => (
           <div key={index}>
-            <HistoryItems inputValue={item} />
-            <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
+            <Suspense fallback={<></>}>
+              <HistoryItems inputValue={item} />
+              <OutputWrapper>{renderTerminalResponse(item)}</OutputWrapper>
+            </Suspense>
           </div>
         ))}
 
-        <Path path="~/home" />
+        <Path path={"~/home"} />
         <CommandInput
           ref={inputRef}
           inputValue={inputValue}

@@ -1,4 +1,5 @@
-import { useQueryClient, useQuery } from "react-query";
+import React from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -28,6 +29,12 @@ const Picture = styled.img`
   border-radius: 50%;
 `;
 
+const PictureSkeleton = styled.div`
+  width: 100%;
+  border-radius: 50%;
+  background-color: #22272e;
+`;
+
 const CardContent = styled.div`
   width: 70%;
   display: flex;
@@ -51,9 +58,13 @@ const FieldName = styled.div`
 const FieldValue = styled.div`
   width: 75%;
 `;
-const GitHub = () => {
-  const queryClient = useQueryClient();
 
+const FieldValueSkeleton = styled.div`
+  width: 75%;
+  height: 90%;
+  background-color: #22272e;
+`;
+const GitHub = () => {
   const userData = useQuery("ghData", () =>
     fetch("https://api.github.com/users/franciscogsilverio").then((res) =>
       res.json()
@@ -65,6 +76,10 @@ const GitHub = () => {
       "https://api.github.com/repos/franciscogsilverio/Terminal-WebPortfolio"
     ).then((res) => res.json())
   );
+
+  const dataStillLoading = userData.isLoading || repoData.isLoading;
+
+  console.log(dataStillLoading);
 
   const formatedDate = (date: string): string => {
     const formated = new Date(date);
@@ -85,34 +100,63 @@ const GitHub = () => {
   return (
     <Wrapper>
       <Card>
-        <ProfilePictureContainer>
-          <Picture src={userData.data?.avatar_url} />
-        </ProfilePictureContainer>
-        <CardContent>
-          <span>
-            <FieldName>Name:</FieldName>{" "}
-            <FieldValue>{userData.data?.name}</FieldValue>{" "}
-          </span>
-          <span>
-            <FieldName>Bio:</FieldName>{" "}
-            <FieldValue>{userData.data?.bio}</FieldValue>
-          </span>
-          <span>
-            <FieldName>Folowers:</FieldName>{" "}
-            <FieldValue>{userData.data?.followers}</FieldValue>
-          </span>
-          <span>
-            <FieldName>Following:</FieldName>{" "}
-            <FieldValue>{userData.data?.following}</FieldValue>
-          </span>
-          <span>
-            <FieldName>Last update:</FieldName>{" "}
-            <FieldValue>{formatedDate(repoData.data?.pushed_at)}</FieldValue>
-          </span>
-        </CardContent>
+        {dataStillLoading ? (
+          <>
+            <ProfilePictureContainer>
+              <PictureSkeleton />
+            </ProfilePictureContainer>
+            <CardContent>
+              <span>
+                <FieldName>Name:</FieldName> <FieldValueSkeleton />
+              </span>
+              <span>
+                <FieldName>Bio:</FieldName> <FieldValueSkeleton />
+              </span>
+              <span>
+                <FieldName>Folowers:</FieldName> <FieldValueSkeleton />
+              </span>
+              <span>
+                <FieldName>Following:</FieldName> <FieldValueSkeleton />
+              </span>
+              <span>
+                <FieldName>Last update:</FieldName> <FieldValueSkeleton />
+              </span>
+            </CardContent>
+          </>
+        ) : (
+          <>
+            <ProfilePictureContainer>
+              <Picture src={userData.data?.avatar_url} />
+            </ProfilePictureContainer>
+            <CardContent>
+              <span>
+                <FieldName>Name:</FieldName>{" "}
+                <FieldValue>{userData.data?.name}</FieldValue>{" "}
+              </span>
+              <span>
+                <FieldName>Bio:</FieldName>{" "}
+                <FieldValue>{userData.data?.bio}</FieldValue>
+              </span>
+              <span>
+                <FieldName>Folowers:</FieldName>{" "}
+                <FieldValue>{userData.data?.followers}</FieldValue>
+              </span>
+              <span>
+                <FieldName>Following:</FieldName>{" "}
+                <FieldValue>{userData.data?.following}</FieldValue>
+              </span>
+              <span>
+                <FieldName>Last update:</FieldName>{" "}
+                <FieldValue>
+                  {formatedDate(repoData.data?.pushed_at)}
+                </FieldValue>
+              </span>
+            </CardContent>
+          </>
+        )}
       </Card>
     </Wrapper>
   );
 };
 
-export default GitHub;
+export default React.memo(GitHub);
