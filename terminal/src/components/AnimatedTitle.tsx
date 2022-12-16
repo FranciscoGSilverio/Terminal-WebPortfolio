@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Command } from "../styles/common";
 import styled, { keyframes } from "styled-components";
 
@@ -14,37 +13,47 @@ const AnimatedCursor = keyframes`
 
 const Wrapper = styled.div`
   display: flex;
+  max-width: 85%;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
+  flex-wrap: wrap;
 `;
 
-const Title = styled.h2`
-  overflow: hidden;
-  border-right: 0.15em solid aliceblue;
-  white-space: nowrap;
-  margin: 0 auto;
-  letter-spacing: 0.15em;
-  animation: ${Typing} 3.5s steps(40, end),
-    ${AnimatedCursor} 0.75s step-end infinite;
-  color: aliceblue;
-`;
+// const Title = styled.h1`
+//   overflow: hidden;
+//   border-right: 0.15em solid aliceblue;
+//   white-space: nowrap;
+//   margin: 0 auto;
+//   letter-spacing: 0.15em;
+//   animation: ${Typing} 3.5s steps(40, end),
+//     ${AnimatedCursor} 0.75s step-end infinite;
+//   color: aliceblue;
+//   font-size: 4.3vw;
+// `;
 
 const Subtitle = styled.h4`
   overflow: hidden;
   border-right: 0.15em solid aliceblue;
   white-space: nowrap;
   margin: 0 auto;
-  letter-spacing: 0.15em;
   animation: ${Typing} 3.5s steps(40, end),
     ${AnimatedCursor} 0.75s step-end infinite;
   color: aliceblue;
+  font-size: 25px;
+
+  @media (max-width: 780px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
 `;
 
 const AnimatedTitle = () => {
   return (
     <Wrapper>
-      <Title>Welcome to my web terminal!</Title>
       <Subtitle>
         Don't know where to start? Try the <Command>help</Command> command!
       </Subtitle>

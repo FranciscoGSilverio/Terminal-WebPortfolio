@@ -37,12 +37,21 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-family: "Poppins", sans-serif;
+  font-size: 15px;
+
+  @media (max-width: 780px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
+  }
 
   ${(props) =>
     props.theme === "drunk" &&
     css`
       animation: ${drunk} 10s linear infinite;
-    `}
+    `};
 `;
 
 const queryClient = new QueryClient();

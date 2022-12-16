@@ -7,7 +7,6 @@ interface Props {
 const LabelContainer = styled.div`
   display: flex;
   color: aliceblue;
-  font-size: 15px;
 
   .user {
     margin-right: 0.3em;
