@@ -223,7 +223,7 @@ const Terminal = () => {
           <RoundedButton color="#ffbd44" />
           <RoundedButton color="#00ca4e" />
         </MacOsButtons>
-        <TerminalTitle>{document.title}</TerminalTitle>
+        <TerminalTitle>Web Terminal</TerminalTitle>
       </Header>
       <Body onClick={() => clickHandler()}>
         {commandsHistory.map((item: any, index: number) => (
