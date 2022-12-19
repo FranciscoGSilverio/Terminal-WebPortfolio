@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Terminal-WebPortfolio/static/css/main.5037ea90.css",
-    "main.js": "/Terminal-WebPortfolio/static/js/main.bc7d26de.js",
+    "main.js": "/Terminal-WebPortfolio/static/js/main.a03518e9.js",
     "static/js/717.f5937dce.chunk.js": "/Terminal-WebPortfolio/static/js/717.f5937dce.chunk.js",
     "static/js/381.33ab105f.chunk.js": "/Terminal-WebPortfolio/static/js/381.33ab105f.chunk.js",
     "static/js/657.a9c31728.chunk.js": "/Terminal-WebPortfolio/static/js/657.a9c31728.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/787.2616d46f.chunk.js": "/Terminal-WebPortfolio/static/js/787.2616d46f.chunk.js",
     "index.html": "/Terminal-WebPortfolio/index.html",
     "main.5037ea90.css.map": "/Terminal-WebPortfolio/static/css/main.5037ea90.css.map",
-    "main.bc7d26de.js.map": "/Terminal-WebPortfolio/static/js/main.bc7d26de.js.map",
+    "main.a03518e9.js.map": "/Terminal-WebPortfolio/static/js/main.a03518e9.js.map",
     "717.f5937dce.chunk.js.map": "/Terminal-WebPortfolio/static/js/717.f5937dce.chunk.js.map",
     "381.33ab105f.chunk.js.map": "/Terminal-WebPortfolio/static/js/381.33ab105f.chunk.js.map",
     "657.a9c31728.chunk.js.map": "/Terminal-WebPortfolio/static/js/657.a9c31728.chunk.js.map",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.5037ea90.css",
-    "static/js/main.bc7d26de.js"
+    "static/js/main.a03518e9.js"
   ]
 }
