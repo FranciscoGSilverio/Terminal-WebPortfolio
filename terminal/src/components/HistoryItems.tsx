@@ -18,7 +18,6 @@ const PreviousCommand = styled.span`
   background: none;
   padding: 5px;
   flex: 1;
-  font-size: 14px;
   color: aliceblue;
 `;
 

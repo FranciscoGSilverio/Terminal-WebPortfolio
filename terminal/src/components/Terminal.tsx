@@ -117,9 +117,12 @@ const Body = styled.div`
 `;
 
 const OutputWrapper = styled.div`
-  font-size: 14px;
   color: aliceblue;
   padding-left: 2em;
+
+  @media (max-width: 800px) {
+    padding-left: 0;
+  }
 `;
 
 interface ButtonProps {

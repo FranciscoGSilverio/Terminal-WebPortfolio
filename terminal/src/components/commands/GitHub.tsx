@@ -12,16 +12,34 @@ const Card = styled.section`
   display: flex;
   width: 60%;
   border-radius: 12px;
-
   box-sizing: border-box;
   background-color: #22272e;
   padding: 10px;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (max-width: 950px) {
+    width: 90%;
+  }
+
+  @media (max-width: 450px) {
+    padding: 2px;
+    width: 100%;
+    font-size: 11px;
+  }
 `;
 
 const ProfilePictureContainer = styled.div`
   display: flex;
   width: 30%;
   padding: 10px;
+
+  @media (max-width: 1200px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const Picture = styled.img`
@@ -47,6 +65,18 @@ const CardContent = styled.div`
   span {
     width: 100%;
     display: flex;
+
+    @media (max-width: 1200px) {
+      align-items: center;
+    }
+  }
+  @media (max-width: 750px) {
+    width: 100%;
+  }
+
+  @media (max-width: 450px) {
+    width: 100%;
+    font-size: 11px;
   }
 `;
 
@@ -57,6 +87,10 @@ const FieldName = styled.div`
 
 const FieldValue = styled.div`
   width: 75%;
+
+  @media (max-width: 1200px) {
+    margin-left: 0.5em;
+  }
 `;
 
 const FieldValueSkeleton = styled.div`

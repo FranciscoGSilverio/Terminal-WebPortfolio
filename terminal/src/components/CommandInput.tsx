@@ -19,7 +19,6 @@ const Input = styled.input`
   background: none;
   padding: 5px;
   flex: 1;
-  font-size: 15px;
   color: aliceblue;
   &:focus {
     outline: none;

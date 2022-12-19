@@ -5,6 +5,15 @@ const List = styled.ul`
   width: 100%;
   line-height: 1.8em;
   padding: 0;
+
+  @media (max-width: 810px) {
+    font-size: 11px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 9px;
+    width: 105%;
+  }
 `;
 
 const Item = styled.li`
@@ -12,11 +21,21 @@ const Item = styled.li`
   display: flex;
   justify-content: start;
   align-items: center;
+
+  @media (max-width: 810px) {
+    width: 100%;
+  }
+
   .command {
     width: 20%;
   }
   .pipe {
     width: 10%;
+
+    @media (max-width: 450px) {
+      width: 5%;
+      padding-left: 5px;
+    }
   }
   .description {
     width: 70%;
@@ -32,8 +51,7 @@ const items = [
   {
     command: "github",
     pipe: "|",
-    description:
-      "fetches data about the developer from the GitHub API",
+    description: "fetches data about the developer from the GitHub API",
   },
   { command: "clear", pipe: "|", description: "clears the console" },
   {
