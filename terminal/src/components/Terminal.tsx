@@ -178,6 +178,9 @@ const Terminal = () => {
       case "source":
         return <Connect social="repository" />;
 
+      case "docs":
+        return <Connect social="docs" />;
+
       case "github":
         return <GitHub />;
 

@@ -80,6 +80,11 @@ const items = [
     description: "opens the source code on the github repository",
   },
   {
+    command: "docs",
+    pipe: "|",
+    description: "opens the project documentation in the notion web page",
+  },
+  {
     command: "drunkmode",
     pipe: "|",
     description: "have you ever used a terminal while you were drunk?...",

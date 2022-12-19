@@ -47,6 +47,8 @@ const Connect = ({ social }: Props) => {
   const findUrl = useCallback(() => {
     if (social?.toLowerCase() === "repository") {
       return "https://github.com/FranciscoGSilverio/Terminal-WebPortfolio";
+    } else if (social?.toLowerCase() === "docs") {
+      return "https://shard-confidence-c13.notion.site/Web-Terminal-c72d1ee21d7c4b1789500cfcd195d0bb";
     } else {
       const redirectUrl = socialMedia.find(
         (item) => item.site.toLowerCase() === social?.toLowerCase()
