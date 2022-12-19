@@ -20,6 +20,17 @@ const Input = styled.input`
   padding: 5px;
   flex: 1;
   color: aliceblue;
+  font-size: 15px;
+  caret-color: #50fa7b;
+
+  @media (max-width: 780px) {
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
+  }
+
   &:focus {
     outline: none;
   }
@@ -38,6 +49,7 @@ const CommandInput = React.forwardRef<HTMLInputElement, Props>(
         <HiArrowSmRight size={23} />
         <Form onSubmit={(e) => submitHandler(e)}>
           <Input
+            spellCheck="false"
             ref={ref}
             type="text"
             autoFocus={true}
