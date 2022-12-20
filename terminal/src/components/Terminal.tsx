@@ -240,6 +240,7 @@ const Terminal = () => {
 
         <Path path={"~/home"} />
         <CommandInput
+          data-testid="terminalInput"
           ref={inputRef}
           inputValue={inputValue}
           changeHandler={changeHandler}

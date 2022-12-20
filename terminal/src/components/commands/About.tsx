@@ -2,7 +2,7 @@ import { Command } from "../../styles/common";
 const About = () => {
   return (
     <>
-      <p>
+      <p data-testid="About">
         <strong>Hi!</strong> My name is Francisco Silvério
       </p>
       <p>

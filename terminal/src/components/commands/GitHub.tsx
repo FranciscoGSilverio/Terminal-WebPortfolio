@@ -132,7 +132,7 @@ const GitHub = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper data-testid="github">
       <Card>
         {dataStillLoading ? (
           <>

@@ -47,8 +47,9 @@ const CommandInput = React.forwardRef<HTMLInputElement, Props>(
     return (
       <CommandInputWrapper>
         <HiArrowSmRight size={23} />
-        <Form onSubmit={(e) => submitHandler(e)}>
+        <Form onSubmit={(e) => submitHandler(e)} data-testid="terminalForm">
           <Input
+            data-testid="terminalInput"
             spellCheck="false"
             ref={ref}
             type="text"
